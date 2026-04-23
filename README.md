@@ -69,7 +69,7 @@ It focuses on implementing core machine learning algorithms **from scratch** as 
 <br>
 
 <p align="middle">
-  <img src="assets/signature.png" alt="signature" width="220"/>
+  <img src="assets/signature.png" alt="signature" width="500"/>
 </p>
 
 ## ⭐ Notes
