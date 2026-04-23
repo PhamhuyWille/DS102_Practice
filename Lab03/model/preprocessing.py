@@ -5,8 +5,8 @@ import random
 from tqdm import tqdm
 
 def collect(split: str='train', BASE_DIR: str='../data/'):
-    normal = 'NORMAL'       # 1
-    pneu = 'PNEUMONIA'      #-1
+    normal = 'NORMAL'       # 0
+    pneu = 'PNEUMONIA'      # -1
     
     images = []
     labels = []
@@ -26,7 +26,6 @@ def collect(split: str='train', BASE_DIR: str='../data/'):
         labels.append(-1)
 
     X = np.stack(images, axis=0)
-    X = (X - X.mean()) / X.std()
     y = np.array(labels)
     
     data = list(zip(X, y))
@@ -36,3 +35,9 @@ def collect(split: str='train', BASE_DIR: str='../data/'):
     X = np.array(X)
     y = np.array(y)
     return X, y
+
+def scaler(X: np.ndarray):
+    mean = X.mean(axis=0)
+    std = X.std(axis=0)
+    X_scale = (X - mean)/std
+    return X_scale, mean, std
