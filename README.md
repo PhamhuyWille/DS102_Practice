@@ -7,6 +7,13 @@ It focuses on implementing core machine learning algorithms **from scratch** as 
 
 ---
 
+## 👨‍🏫 Instructor
+
+- **MSc. Nguyễn Hiếu Nghĩa**
+- Faculty of Information Science and Engineering, University of Information Technology (UIT - VNUHCM)
+
+---
+
 ## 📌 Objectives
 
 - Understand the mathematical foundations behind machine learning models
@@ -59,12 +66,11 @@ It focuses on implementing core machine learning algorithms **from scratch** as 
 
 ## ✍️ Author
 
-**Pham Dinh Quang Huy**
-
-- 🎓 Data Science @ UIT
-- 📘 Class: DS102.Q21.2
-- 🆔 Student ID: 24520689
-- 📧 Email: 24520689@gm.uit.edu.vn
+- Full name: **Phạm Đình Quang Huy**
+- Data Science @ UIT
+- Class: DS102.Q21.2
+- Student ID: 24520689
+- Email: 24520689@gm.uit.edu.vn
 
 <br>
 
