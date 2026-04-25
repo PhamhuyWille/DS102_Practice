@@ -3,10 +3,17 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from tqdm import tqdm
-from sklearn.metrics import precision_score, recall_score, f1_score
 
 class SVM:
-    def __init__(self, C: float = 1, lr: float = 0.01, epochs: int = 1000, batch_size: int = 32):
+    def __init__(self, C: float = 1, lr: float = 0.01, epochs: int = 100, batch_size: int = 32):
+        '''
+        Định nghĩa các thông số của mô hình, bao gồm các thông số sau:
+        - lr: learning rate (tốc độ học của mô hình)
+        - epochs: Số lượng vòng lặp để mô hình hội tụ
+        - batch_size: Số lượng mẫu được sử dụng trong 1 lần để cập nhật thông số.
+        - C: Điều khiển trade off giữa outlier và độ rộng margin
+        - self.losses: list sai số của mô hình để vẽ đồ thị biểu diễn.
+        '''
         self.weight = None
         self.bias = None
         self.C = C
@@ -16,6 +23,18 @@ class SVM:
         self.losses = []
 
     def fit(self, X: np.ndarray, y: np.ndarray):
+        '''
+        Được sử dụng để training mô hình. Mô hình sử dụng Gradient Descent
+        với Hinge Loss để giúp mô hình hội tụ. Đồng thời, sử dụng mini_batch 
+        thay vì SGD để giảm khối lượng tính toán. 
+        Quy trình:
+        - Đầu tiên khởi tạo self.weight và self.bias. Sau đó, với mỗi epoch
+        thì bắt đầu shuffle X và y để mô hình tránh học theo thứ tự cố định.
+        - Tiếp theo, mô hình sẽ học thông qua từng batch_size và tính GD để 
+        tinh chỉnh weight và bias. 
+        - Hết vòng lặp thì mô hình sẽ dự đoán kết quả và tính toán loss thông qua
+        loss_fn và lưu vào self.losses để vẽ đồ thị sau này. 
+        '''
         N, dim = X.shape
         self.weight = np.zeros(dim)
         self.bias = 0
@@ -46,28 +65,25 @@ class SVM:
             self.losses.append(loss)
 
     def predict(self, X: np.ndarray):
+        '''
+        Dùng để dự đoán kết quả trên tập test.
+        '''
         y_score = X @ self.weight + self.bias
         return np.where(y_score >= 0, 1, -1)
 
     def loss_fn(self, y: np.ndarray, y_hat: np.ndarray):
+        '''
+        Hàm tính loss sử dụng Hinge Loss để vẽ đồ thị sau này.
+        '''
         reg = 0.5 * np.dot(self.weight, self.weight)
         hinge_loss = self.C * np.maximum(0, 1 - y * y_hat).sum()
         return reg + hinge_loss
     
-    def metric(self, X: np.ndarray, y: np.ndarray):
-        y_pred = self.predict(X)
-        
-        precision = precision_score(y_pred, y)
-        recall = recall_score(y_pred, y)
-        f1 = f1_score(y_pred, y)
-
-        return {
-            'precision': precision,
-            'recall': recall, 
-            'f1': f1
-        }
-    
     def loss(self):
+        '''
+        Sau khi training xong, sẽ sử dụng hàm loss để vẽ sai số thông qua 
+        những lần training.
+        '''
         df = pd.DataFrame({
             'Epoch': range(1, len(self.losses) + 1),
             'Loss': self.losses
