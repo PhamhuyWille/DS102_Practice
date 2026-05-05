@@ -28,7 +28,7 @@ It focuses on implementing core machine learning algorithms **from scratch** as 
 ### 🔹 Lab01 - Linear Regression
 
 - Implement Linear Regression from scratch
-- Apply model on `forestfires.csv` dataset
+- Apply model on **`forestfires.csv`** dataset
 - Analyze model performance and error behavior
 
 ---
@@ -37,7 +37,7 @@ It focuses on implementing core machine learning algorithms **from scratch** as 
 
 - Build Logistic Regression (binary classification)
 - Extend to Softmax Regression (multi-class classification)
-- Dataset: _Predict Students' Dropout and Academic Success_
+- Dataset: `_Predict Students' Dropout and Academic Success_`
 
 ---
 
@@ -45,11 +45,19 @@ It focuses on implementing core machine learning algorithms **from scratch** as 
 
 - Build SVM classifier from scratch
 - Task: Classify **Normal vs Pneumonia** from X-ray images
-- Dataset: _Chest X-Ray Images (Pneumonia)_
+- Dataset: `_Chest X-Ray Images (Pneumonia)_`
 
 ---
 
-### 🔹 Lab04 - _(Update later)_
+### 🔹 Lab04 - Decision Tree & Random Forest
+
+- Build Decision Tree and Random Forest (multi-class classification)
+- Apply model on **`Wine Quality`** dataset
+- Compare and analysis between the model build from scratch and the sklearn library.
+
+---
+
+### 🔹 Lab05 - (Update later)
 
 ---
 
