@@ -80,10 +80,14 @@ Quy trình được thiết kế đồng bộ để đảm bảo dữ liệu đ�
 
 Kết quả thu được sau khi chạy trên tập dữ liệu kiểm tra (Test set):
 
+<div align="center">
+
 | Chỉ số               | DT Scratch | DT Library | RF Scratch | RF Library |
 | :------------------- | :--------: | :--------: | :--------: | :--------: |
 | **Accuracy**         |   0.6069   |   0.6054   |   0.6585   | **0.6638** |
 | **F1-Score (Macro)** |   0.5918   |   0.5918   | **0.6425** |   0.6395   |
+
+</div>
 
 **Nhận xét:**
 
