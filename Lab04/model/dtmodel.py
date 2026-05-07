@@ -2,6 +2,11 @@ import numpy as np
 
 class Node:
     def __init__ (self, gini, feature, threshold, left, right, value):
+        '''
+        Khởi tạo giá trị của node của một cây trong decision tree, bao gồm 2 loại node:
+        - Node lá: self.value sẽ có giá trị khác None
+        - Node trung gian: self.value có giá trị là None
+        '''
         self.gini = gini
         self.feature = feature
         self.threshold = threshold
@@ -9,18 +14,34 @@ class Node:
         self.right = right
         self.value = value
 
-class DecisionTreescratch:
+class DecisionTree:
     def __init__(self, depth: int = 10, min_sample_split: int=2):
+        '''
+        Khởi tạo tham số cho mô hình Decision Tree, bao gồm:
+        - self.depth: độ sâu của cây
+        - self.min_sample_split: số mẫu tối thiểu để tiếp tục chia cây
+        - self.root: root của cây
+        - self.classes: số lớp mà mô hình sẽ phải phân loại.
+        '''
         self.depth = depth
         self.min_sample_split = min_sample_split
         self.root = None
         self.classes = None
 
     def fit(self, X: np.ndarray, y: np.ndarray):
+        '''
+        Hàm fit sẽ tiến hành xây dựng Decision Tree, trong hàm này 
+        sẽ thực hiện 2 việc: gán số lượng lớp cho biến self.classes 
+        và gán cây sẽ xây cho biến self.root với depth ban đầu là 0.
+        '''
         self.classes = len(np.unique(y))
         self.root = self.build_tree(X, y, 0)
 
     def predict_one(self, x, node: Node):
+        '''
+        Hàm predict_one dùng để phân loại một sample, sử dụng thuật toán
+        DFS để tìm ra lớp của x. Hàm sẽ trả về lớp dự đoán của sample đó.
+        '''
         if node.value != None:
             return node.value
         
@@ -31,15 +52,35 @@ class DecisionTreescratch:
             return self.predict_one(x, node.right)
 
     def predict(self, X):
+        '''
+        Hàm predict dùng để phân loại các sample trong X_test và trả 
+        về một list() các lớp của các sample.
+        '''
         return [self.predict_one(x, self.root) for x in X]
     
     def major_vote(self, y):
+        '''
+        Hàm major_vote dùng để đếm số lượng của mỗi lớp 
+        và sẽ trả về giá trị có số lượng xuất hiện là lớn nhất.
+        '''
         labels, counts = np.unique(y, return_counts=True)
         index = np.argmax(counts)
         value = labels[index]
         return value
 
     def build_tree(self, X, y, depth):
+        '''
+        Hàm build_tree dùng để xây dựng Decision Tree, dùng phương pháp 
+        đệ quy (recursion) để tạo các node cho cây. Điều kiện để không 
+        tạo node lá:
+        1. depth tại vị trí đó phải nhỏ hơn so với self.depth
+        2. Số lượng class của những sample đó phải lớn hơn 1
+        3. số lượng sample phải lớn hơn min_sample_split.
+        4. Sau khi tách node thì thuộc tính feature phải tồn tại
+        5. Sau khi tách node thì số lượng sample bên trái node
+        và bên phải node phải lớn hơn 0.
+        Nếu không thỏa mãn các điều kiện này thì sẽ tạo node lá.
+        '''
         n, features = X.shape
         num_class = len(np.unique(y))
 
@@ -96,6 +137,11 @@ class DecisionTreescratch:
         )
 
     def gini(self, X, y, threshold):
+        '''
+        Hàm gini dùng để tính toán độ lợi của thông tin, tức là sẽ tính toán
+        tại vị trí đó thì thông tin mang lại là bao nhiêu. Công thức để tính 
+        gini là gini = 1 - sum(p_i ** 2)
+        '''
         left_mask = X <= threshold
         right_mask = X > threshold
         
@@ -121,6 +167,12 @@ class DecisionTreescratch:
         return gini_i
 
     def best_split(self, X, y):
+        '''
+        Hàm best_split dùng để tìm vị trí để chia data sao cho gini tại vị
+        trí đó là bé nhất.
+        Hàm này sẽ trả về giá trị gini tốt nhất, feature có gini tốt nhất và
+        ngưỡng chia tốt nhất.
+        '''
         n, features = X.shape
         if n < 2:
             return None, None, None
