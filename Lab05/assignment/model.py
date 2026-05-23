@@ -30,7 +30,7 @@ class KMeanClustering:
             ])
 
             if np.all(np.linalg.norm(new_centroids - self.centroid, axis=1) < self.tolerance):
-                print(f"Converged early at iteration {i}")
+                print(f"Converged early at iteration {i} \n")
                 break
                 
             self.centroid = new_centroids
