@@ -22,7 +22,7 @@ Trong bài thực hành này, tôi tập trung triển khai hai thuật toán n�
 │  ├─ winequality-red.csv         # Dữ liệu rượu vang đỏ
 │  ├─ winequality-white.csv       # Dữ liệu rượu vang trắng
 │  └─ winequality.names
-├─ modul                          # Chứa các module xử lý chính
+├─ model                          # Chứa các module xử lý chính
 │  ├─ dtmodel.py                  # Mô hình Decision Tree từ scratch
 │  ├─ rfmodel.py                  # Mô hình Random Forest từ scratch
 │  ├─ preprocessing.py            # Tiền xử lý dữ liệu & Scaling
